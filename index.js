@@ -20,6 +20,6 @@ app.post('/signup', signup)
 app.post('/login', login)
 
 app.listen(port, async () => {
-    console.log(`Listening on port ${port}`)
+    console.log({ message: `Listening on port ${port}` })
     await client.connect();
 })

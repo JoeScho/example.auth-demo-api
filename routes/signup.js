@@ -1,3 +1,4 @@
+const { v4: uuid } = require('uuid')
 const bcrypt = require('bcrypt')
 
 const signup = async (req, res) => {
@@ -9,12 +10,15 @@ const signup = async (req, res) => {
     try {
         await req.client.set(user, JSON.stringify(userData));
     } catch (err) {
-        console.log(err)
+        req.logger.error(err)
     }
 
     req.logger.info(`Created user ${user} successfully`)
 
-    res.status(201).send('User created')
+    res.status(201).send({
+        sessionId: uuid(),
+        message: 'User created'
+    })
 }
 
 module.exports = { signup }
