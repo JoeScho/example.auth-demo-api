@@ -10,7 +10,8 @@ const signup = async (req, res) => {
     try {
         await req.client.set(user, JSON.stringify(userData));
     } catch (err) {
-        req.logger.error(err)
+        req.logger.error('Error creating user', err)
+        return res.status(500).send('Something went wrong')
     }
 
     req.logger.info(`Created user ${user} successfully`)

@@ -9,7 +9,8 @@ const login = async (req, res) => {
     try {
         userString = await req.client.get(username);
     } catch (err) {
-        return res.status(500).send('Internal server error')
+        req.logger.error('Error connecting to database', err)
+        return res.status(500).send('Something went wrong. Please try again later.')
     }
     const user = JSON.parse(userString)
 
